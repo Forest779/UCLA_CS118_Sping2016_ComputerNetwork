@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html -->
+<html lang=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>Project 2 - CS118: Computer Network Fundamentals - Spring 2016 (UCLA)</title>
+<meta name="description" content="">
+<meta name="author" content="Alexander Afanasyev">
+<link rel="canonical" href="http://web.cs.ucla.edu/project-2">
+<!-- Le styles -->
+
+<link rel="stylesheet" href="./Project2_要求_files/bootstrap.min.css" id="bootstrap">
+<link rel="stylesheet" href="./Project2_要求_files/font-awesome.min.css" id="font-awesome">
+<link rel="stylesheet" href="./Project2_要求_files/style.css">
+
+<!-- Font Awesome -->
+<link href="./Project2_要求_files/font-awesome.min.css" rel="stylesheet">
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="/classes/spring16/cs118/assets/js/libs/html5shiv.js"></script>
+<![endif]-->
+
+
+</head>
+<body>
+<header id="header">
+<hgroup>
+  <h1 id="site-title">
+    <a class="full" href="http://web.cs.ucla.edu/classes/spring16/cs118/">CS118: Computer Network Fundamentals - Spring 2016 (UCLA)</a>
+    <a class="hidden-print short" href="http://web.cs.ucla.edu/classes/spring16/cs118/"></a>
+  </h1>
+
+</hgroup>
+
+</header>
+
+<nav id="navbar">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+
+
+  
+  
+          <li class="">
+            <a href="http://web.cs.ucla.edu/classes/spring16/cs118/">Home</a>
+          </li>
+  
+
+  
+  
+          <li class="">
+            <a href="http://web.cs.ucla.edu/classes/spring16/cs118/syllabus.html">Syllabus</a>
+          </li>
+  
+
+  
+  
+          <li class="">
+            <a href="http://web.cs.ucla.edu/classes/spring16/cs118/homeworks.html">Homeworks</a>
+          </li>
+  
+
+  
+  
+          <li class="">
+            <a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-1.html">Project 1</a>
+          </li>
+  
+
+  
+  
+          <li class="">
+            <a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html">Project 2</a>
+          </li>
+  
+
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+</nav>
+
+<div class="container-fluid">
+  <div class="row-fluid">
+
+    <div id="main" class="col-xs-12 col-sm-12">
+      <article>
+
+<section>
+  <ul id="markdown-toc">
+  <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#project-2-simple-tcp-like-transport-protocol-over-udp" id="markdown-toc-project-2-simple-tcp-like-transport-protocol-over-udp">Project 2: Simple TCP-like Transport Protocol over UDP</a>    <ul>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#revisions" id="markdown-toc-revisions">Revisions</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#overview" id="markdown-toc-overview">Overview</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#task-description" id="markdown-toc-task-description">Task Description</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#basic-transmission-over-udp" id="markdown-toc-basic-transmission-over-udp">Basic Transmission over UDP</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#error-handling" id="markdown-toc-error-handling">Error Handling</a>        <ul>
+          <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#examples-to-emulate-packet-loss" id="markdown-toc-examples-to-emulate-packet-loss">Examples to emulate packet loss</a></li>
+        </ul>
+      </li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#congestion-control" id="markdown-toc-congestion-control">Congestion Control</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#hints" id="markdown-toc-hints">Hints</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#requirements" id="markdown-toc-requirements">Requirements</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#environment-setup" id="markdown-toc-environment-setup">Environment Setup</a>        <ul>
+          <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#set-up-vagrant-and-create-vm-instance" id="markdown-toc-set-up-vagrant-and-create-vm-instance">Set up Vagrant and create VM instance</a></li>
+          <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#notes" id="markdown-toc-notes">Notes</a></li>
+        </ul>
+      </li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#submission" id="markdown-toc-submission">Submission</a></li>
+      <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#grading" id="markdown-toc-grading">Grading</a>        <ul>
+          <li><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#bonus-points" id="markdown-toc-bonus-points">Bonus points</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="project-2-simple-tcp-like-transport-protocol-over-udp">Project 2: Simple TCP-like Transport Protocol over UDP</h1>
+
+<h2 id="revisions">Revisions</h2>
+
+<ul>
+  <li><strong>May 26, 2016</strong>: Fix inconsistency about header format.  You should use the headers defined in the project definition.</li>
+  <li><strong>Max 19, 2016</strong>: Small corrections about congestion window sizes</li>
+  <li><strong>May 18, 2016</strong>: Corrected definition of the maximum packet size</li>
+  <li><strong>May 9, 2016</strong>: Updated <code class="highlighter-rouge">Vagrantfile</code> in the project skeleton, updated environment setup instructions, and <code class="highlighter-rouge">tc</code> examples</li>
+  <li><strong>May 8, 2016</strong>: Add congestion/receiver window clarifications</li>
+  <li><strong>May 5, 2016</strong>: Add suggested header format and examples of how to use <code class="highlighter-rouge">tc</code> command to emulate loss and delay on the link</li>
+  <li><strong>April 26, 2016</strong>: Initial version of the project description.</li>
+</ul>
+
+<h2 id="overview">Overview</h2>
+
+<p>The purpose of this project is to learn the basics of TCP protocol, including connection establishment and congestion control.
+You will need to implement a simple data transfer client and server applications, using UDP sockets as an unreliable transport.
+Your client should receive data even though some packets are dropped or delayed.</p>
+
+<h2 id="task-description">Task Description</h2>
+
+<p>The developed client should establish connection to the developed server, after which the server will need to transfer data to the client.
+Individual packets sent by the client and the server may be lost or reordered.
+Therefore, your task is to make reliable data transfer by implementing parts of TCP such as the sequence number, the acknowledgement, and the congestion control.</p>
+
+<p>The project will be graded by testing transfer a single file over the unreliable link.
+Your second project does not need to be extended from your first project (if you extend, you will get extra credit, see below).
+Instead, you can simply implement a single threaded server that starts data transfer as soon as the connection is established.</p>
+
+<h2 id="basic-transmission-over-udp">Basic Transmission over UDP</h2>
+
+<ul>
+  <li>
+    <p>In this project, you will be implementing a simple congestion window based reliable transport protocol similar to TCP.
+ You must write one program implementing the client side, and another program implementing the server side. Only C/C++ are allowed to use in this project as you did in the first project.</p>
+  </li>
+  <li>
+    <p>The client and the server will communicate using the User Datagram Protocol (UDP) socket, which does not guarantee data delivery.</p>
+  </li>
+  <li>
+    <p>The initial congestion window size starts from 1024 bytes.</p>
+  </li>
+  <li>
+    <p>The fixed retransmission timeout value 500 milliseconds (adaptive RTO for the extra credit)</p>
+  </li>
+  <li>
+    <p>The client should establish a connection to the server using a three-way handshake.  During the handshake, the server has to send its initial sequence number to the client.</p>
+  </li>
+  <li>
+    <p>After establishing the connection, the server should send the specified in the command-line file, dividing it into multiple packets and adding necessary header information. The maximum packet size should be 1032 bytes including all the headers (max 1024 bytes of payload).</p>
+  </li>
+  <li>
+    <p>Command-line specification for client and server program:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  ./client SERVER-HOST-OR-IP PORT-NUMBER
+
+  ./server PORT-NUMBER FILE-NAME
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>You should use the packet format defined later in the project description.</p>
+  </li>
+  <li>
+    <p>Note that your programs will act as both a network application (file transfer program) as well as a reliable
+transport layer protocol built over the unreliable UDP transport layer.</p>
+  </li>
+</ul>
+
+<h2 id="error-handling">Error Handling</h2>
+
+<p>Although using UDP does not ensure reliability of data transfer, the actual rate of packet loss or corruption in LAN
+may be too low to test your program.  Therefore, we are going to emulate packet loss by using <code class="highlighter-rouge">tc</code> command in linux.</p>
+
+<ul>
+  <li>The file transmission should be completed successfully, unless the packet loss rate is 100%.</li>
+  <li>The timer on both the client and the server should work correctly to retransmit the lost packet.</li>
+</ul>
+
+<h3 id="examples-to-emulate-packet-loss">Examples to emulate packet loss</h3>
+
+<p>If are using the <a href="https://github.com/cawka/spring16-cs118-project2">Vagrantfile provided in project-2 skeleton</a>, you can automatically instantiate two virtual machines that are connected to each other using a private network (<code class="highlighter-rouge">eth1</code> interface on each) with emulated 10% loss and delay of 20ms in each direction.</p>
+
+<p>You can use the following commands to adjust parameters of the emulation:</p>
+
+<ul>
+  <li>
+    <p>To check the current parameters for the private network (<code class="highlighter-rouge">eth1</code>)</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  tc qdisc show dev eth1
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>To change current parameters to loss rate of 20% and delay 100ms:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  tc qdisc change dev eth1 root netem loss 20% delay 100ms
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>To delete the network emulation:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  tc qdisc del dev eth1 root
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>If network emulation hasn’t yet setup or you have deleted it, you can add it to, e.g., 10% loss without delay emulation:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  tc qdisc add dev eth1 root netem loss 10%
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>You can also change network emulation to re-order packets.  The command below makes 4 out of every 5 packets (1-4, 6-9, …) to be delayed by 100ms, while every 5th packet (, 10, 15, …) will be sent immediately:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  tc qdisc change add dev eth1 root netem gap 5 delay 100ms
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>More examples can be found in <a href="http://www.linuxfoundation.org/collaborate/workgroups/networking/netem">Network Emulation tutorial</a></p>
+  </li>
+</ul>
+
+<p>If you are not using the provided Vagrant, you should adjust network interface to one that matches your experiments.</p>
+
+<h2 id="congestion-control">Congestion Control</h2>
+
+<p>Your server has to adjust the congestion window size depending on the link status.  <strong>Note that for the full credit you need implement only TCP Tahoe congestion window adjustment logic</strong>:</p>
+
+<ul>
+  <li><em>Slow start</em>: the congestion window size will be doubled until it meets the slow start threshold value (<code class="highlighter-rouge">ssthresh</code>).</li>
+  <li><em>Congestion Avoidance</em>: the congestion window size added by one if the congestion window size is larger than <code class="highlighter-rouge">ssthresh</code>.</li>
+  <li>
+    <p>If a packet is lost as detected by the retransmission timeout</p>
+
+    <ul>
+      <li>The server sets <code class="highlighter-rouge">ssthresh</code> to 1/2 of current congestion window and</li>
+      <li>set congestion window to 1024 bytes</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In other words, after timeout, the sender adjusts the value of <code class="highlighter-rouge">sshthresh</code> and moves back to <em>Slow Start</em> stage.  As soon as the value of <code class="highlighter-rouge">cwnd</code> reaches <code class="highlighter-rouge">sshthresh</code>, it switches to <em>Congestion Avoidance</em>.  As soon as packet lost, the server again adjusts <code class="highlighter-rouge">sshthresh</code>, set <code class="highlighter-rouge">cwnd</code> to 1, and restart from <em>Congestion Avoidance</em> stage.</p>
+
+<p>When you done with the basic project, you can continue with implementing TCP Reno and/or TCP NewReno congestion window adjustment logic for extra credit.</p>
+
+<h2 id="hints">Hints</h2>
+
+<p>The best way to approach this project is in incremental steps.  Do not try to implement all of the functionality at once.</p>
+
+<ul>
+  <li>
+    <p>First, assume there is no packet loss. Just have the server send a packet, the receiver respond with an ACK,
+and so on.</p>
+  </li>
+  <li>
+    <p>Second, introduce a large file transmission. This means you must divide the file into multiple packets and transmit the packets based on the current congestion window size.</p>
+  </li>
+  <li>
+    <p>Third, introduce packet loss.  Now you have to add a timer at the first sent and unacked packet. There should be one timeout whenever data segments are sent out. Also congestion control features should be implemented for the successful file transmission.</p>
+  </li>
+</ul>
+
+<p>The credit of your project is distributed among the required functions. If you only finish part of the requirements, we still
+give you partial credit. So please do the project incrementally.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+  <li>
+    <p>You must use an UDP socket for both sender and receiver.</p>
+  </li>
+  <li>
+    <p>You should print messages to the screen when the server or the client is sending or receiving packets. There
+are four types of output messages and should follow the formats below.</p>
+
+    <ul>
+      <li>
+        <p>Server: Sending data packets</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  "Sending data packet" [Sequence number] [CWND] [SSThresh] ("Retransmission")
+</code></pre>
+        </div>
+
+        <p>Example:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  Sending data packet 5096 16384 30720
+  Sending data packet 6000 16384 30720
+  Sending data packet 6020 16384 30720
+  Sending data packet 5096  1024 15360 Retransmission
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>Server: Receiving ACK packets</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  "Receiving ACK packet" [ACK number]
+</code></pre>
+        </div>
+
+        <p>Example:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  Receiving ACK packet 5096
+  Receiving ACK packet 6020
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>Client: Sending ACK packets</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  "Sending ACK packet" [ACK number] ("Retransmission")
+</code></pre>
+        </div>
+
+        <p>Example:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  Sending ACK packet 5096
+  Sending ACK packet 6000
+  Sending ACK packet 6020
+  Sending ACK packet 6020 Retransmission
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>Client: Receiving data packets</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  "Receiving data packet" [Sequence number]
+</code></pre>
+        </div>
+
+        <p>Example:</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  Receiving data packet 5096
+  Receiving data packet 6020
+</code></pre>
+        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The maximum packet size is 1032 bytes including a header (1024 bytes for the payload)</p>
+  </li>
+  <li>
+    <p>The receiver and congestion window sizes must be in <strong>the unit of bytes</strong>, not in the unit of packet count. For example, if the minimum of the congestion and receiver windows is 5000 bytes, then four packets with payload of 1024 bytes each can be transmitted simultaneously (including length, each packet will be 1032 bytes) or five packets with payload of 1000 bytes (i.e., if you want, you can send payload less than maximum).</p>
+  </li>
+  <li>
+    <p>The sequence number is given in <strong>the unit of bytes</strong> as well. The maximum sequence number should correspond to <strong>30 Kbytes (30720 bytes)</strong>. You have to reset back the sequence number when it reaches the maximum value.</p>
+  </li>
+  <li>
+    <p>Packet retransmission should be triggered when the timer times out.</p>
+  </li>
+  <li>
+    <p>Here are the default values for some variables.</p>
+
+    <ul>
+      <li>Maximum packet length (including all your headers): <strong>1032 bytes</strong></li>
+      <li>Maximum sequence number: <strong>30720 bytes</strong></li>
+      <li>Initial congestion window size: <strong>1024 byte</strong></li>
+      <li>Initial slow start threshold: <strong>30720 bytes</strong></li>
+      <li>Retransmission time out value: <strong>500 ms</strong></li>
+      <li>The basic client’s receiver window can be always <strong>30720 bytes</strong>, but the server should be able to properly handle cases when the window is reduced.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Simple TCP header format</p>
+
+    <ul>
+      <li>
+        <p>Your simple TCP header should follow the below format which is 8 bytes fixed size.</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>   0                   1                   2                   3
+   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |        Sequence Number        |     Acknowledgment Number     |
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  |             Window            |          Not Used       |A|S|F|
+  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">Sequence Number</code> (16 bits): The sequence number of the first data octet in this packet (except when SYN is present). If SYN is present the sequence number is the initial sequence number (ISN) and the first data octet is ISN+1.</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">Acknowledgement Number</code> (16 bits): If the ACK control bit is set this field contains the value of the next sequence number the sender of the segment is expecting to receive.  Once a connection is established this is always sent.</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">Window</code> (16 bits): The number of data octets the sender of this packet is willing to accept.</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">Not Used</code> (13 bits): Must be zero.</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">A</code> (ACK, 1 bit): Indicates that there the value of <code class="highlighter-rouge">Acknowledgment Number</code> field is valid</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">S</code> (SYN, 1 bit): Synchronize sequence numbers (TCP connection establishment)</p>
+      </li>
+      <li>
+        <p><code class="highlighter-rouge">F</code> (FIN, 1 bit): No more data from sender (TCP connection termination)</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="environment-setup">Environment Setup</h2>
+
+<p>The best way to guarantee full credit for the project is to do project development using a Ubuntu 14.04-based virtual machine.</p>
+
+<p>You can easily create an image in your favourite virtualization engine (VirtualBox, VMware, Docker) using the Vagrant platform and steps outlined below.</p>
+
+<h3 id="set-up-vagrant-and-create-vm-instance">Set up Vagrant and create VM instance</h3>
+
+<p><strong>Note that all example commands are executed on the host machine (your laptop), e.g., in Terminal.app (or iTerm2.app) on OS X, cmd in Windows, and console or xterm on Linux.  After the last step (<code class="highlighter-rouge">vagrant ssh</code>) you will get inside the virtual machine and can compile your code there.</strong></p>
+
+<ul>
+  <li>
+    <p>Download and install your favourite virtualization engine, e.g., <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a></p>
+  </li>
+  <li>
+    <p>Download and install <a href="https://www.vagrantup.com/downloads.html">Vagrant tools</a> for your platform</p>
+  </li>
+  <li>
+    <p>Set up project and VM instances</p>
+
+    <ul>
+      <li>
+        <p>Clone <a href="https://github.com/cawka/spring16-cs118-project2">project template</a></p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/cawka/spring16-cs118-project2 ~/cs118-proj2
+cd ~/cs118-proj2
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>Initialize VMs, one to run the client app and the other to run the server app</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>vagrant up
+
+# Or you can set up them individually
+# vagrant up client
+# vagrant up server
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>To establish an SSH session to the created VM, run</p>
+
+        <p>To ssh to the client VM</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>vagrant ssh 
+# or vagrant ssh client
+</code></pre>
+        </div>
+
+        <p>To ssh to the server VM</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>vagrant ssh server
+</code></pre>
+        </div>
+      </li>
+    </ul>
+
+    <p>If you are using Putty on Windows platform, <code class="highlighter-rouge">vagrant ssh</code> (<code class="highlighter-rouge">vagrant ssh server</code>) will return information regarding the IP address and the port to connect to your virtual machine.</p>
+  </li>
+  <li>
+    <p>Work on your project</p>
+
+    <p>All files in <code class="highlighter-rouge">~/cs118-proj2</code> folder on the host machine will be automatically synchronized with <code class="highlighter-rouge">/vagrant</code> folder on both virtual machines.  For example, to compile your code, you can run the following commands:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  vagrant ssh
+  cd /vagrant
+  make
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h3 id="notes">Notes</h3>
+
+<ul>
+  <li>
+    <p>If you want to open another SSH session, just open another terminal and run <code class="highlighter-rouge">vagrant ssh</code> (or create a new Putty session).</p>
+  </li>
+  <li>
+    <p>The client and server VMs are connected using the private network <code class="highlighter-rouge">10.0.0.0/24</code> (<code class="highlighter-rouge">eth1</code>)</p>
+
+    <ul>
+      <li>client’s IP address: <code class="highlighter-rouge">10.0.0.2</code></li>
+      <li>server’s IP address: <code class="highlighter-rouge">10.0.0.1</code></li>
+    </ul>
+
+    <p>Note that these addresses do not mean that your server and client must support only this environment.  The server and client should be able to work a linux host with any other IP addresses as well.</p>
+  </li>
+  <li>
+    <p>If you are using Windows, read <a href="http://www.sitepoint.com/getting-started-vagrant-windows/">this article</a> to help yourself set up the environment.</p>
+  </li>
+  <li>
+    <p>The code base contains the basic <code class="highlighter-rouge">Makefile</code> and two empty files <code class="highlighter-rouge">server.cpp</code> and <code class="highlighter-rouge">client.cpp</code>.</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  $ vagrant ssh
+  vagrant@vagrant-ubuntu-xenial-64:~$ cd /vagrant
+  vagrant@vagrant-ubuntu-xenial-64:/vagrant$ ls
+  Makefile  README.md  Vagrantfile  client.cpp  server.cpp
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>You are now free to add more files and modify the Makefile to make the <code class="highlighter-rouge">server</code> and <code class="highlighter-rouge">client</code> full-fledged implementation.</p>
+  </li>
+</ul>
+
+<h2 id="submission">Submission</h2>
+
+<p>To submit your project, you need to prepare:</p>
+
+<ol>
+  <li>
+    <p>All your source code and Makefile (no binaries) as <code class="highlighter-rouge">.tar.gz</code> archive.</p>
+  </li>
+  <li>
+    <p>A PDF project report that describes</p>
+    <ul>
+      <li>the high level design of your server and client;</li>
+      <li>the problems your ran into and how you solved the problems;</li>
+      <li>additional instructions to build your project (if your project uses some other libraries);</li>
+      <li>how you tested your code and why.</li>
+      <li>the contribution of each team member (up to 3 members in one team) and their UID</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Put all these above into a package and submit to CCLE.</p>
+
+<p>Please make sure:</p>
+
+<ol>
+  <li>your code can compile</li>
+  <li>no unnecessary files in the package.</li>
+</ol>
+
+<p>Otherwise, your will not get any credit.</p>
+
+<h2 id="grading">Grading</h2>
+
+<p>Your code will be first checked by a software plagiarism detecting tool. If we find any plagiarism, you will not get any credit.</p>
+
+<p>Your code will then be automatically tested in some testing scenarios. If your code can pass all our automated test cases, you will get the full credit.</p>
+
+<h3 id="bonus-points">Bonus points</h3>
+
+<p>You can have:</p>
+
+<ul>
+  <li>1 extra point if you implement RTT estimation and adaptive RTO, as defined in TCP specification</li>
+  <li>1 extra point if you implement TCP Reno or TCP NewReno fast retransmission and recovery</li>
+  <li>(<strong>Very complicated. Proceed with caution</strong>) 4 extra points if you replace TCP transport in your project-1 with the transport you have implemented in this project, which should involve:
+    <ul>
+      <li>creating a proper socket-like abstraction for your transport</li>
+      <li>bidirectional data flow (client will need to send request and server will need to send reply)</li>
+      <li>support for multiple parallel connections</li>
+    </ul>
+  </li>
+</ul>
+
+
+</section>
+
+<footer>
+</footer>
+</article>
+
+    </div>
+
+  </div><!--/row-->
+</div> <!-- /container -->
+
+<hr>
+
+<footer id="footer">
+<p class="pull-right hidden-print"><a href="http://web.cs.ucla.edu/classes/spring16/cs118/project-2.html#">Back to top</a></p>
+<p>Copyright © 2016, Alexander Afanasyev<small class="hidden-print">&nbsp;&nbsp;Based on <a href="https://github.com/tokkonopapa/jekyll-experiment">Jekyll Experiment</a></small></p>
+
+</footer>
+<script src="./Project2_要求_files/jquery-2.2.0.min.js"></script>
+<script src="./Project2_要求_files/bootstrap.min.js"></script>
+<script src="./Project2_要求_files/script.js"></script>
+<script>
+    (function(win, doc, script) {
+        
+    }(window, document, 'script'));
+</script>
+
+
+
+</body></html>
